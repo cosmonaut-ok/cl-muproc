@@ -67,7 +67,7 @@
   :description "A library for message-passing CL processes, inspired by the Erlang programming language."
   :version "git"
   :depends-on (#+(or sbcl cmu ecl) :bordeaux-threads
-               #+(or sbcl cmu ecl) :timer)
+               #+(or sbcl cmu ecl) :trivial-timers)
   :components
   ((:module "src"
             :serial t

@@ -76,14 +76,15 @@
   (threadp obj))
 
 ;;; TIMERS
-(eval-when (:load-toplevel :execute)
-  (timer:enable-timers))
+#-sbcl(eval-when (:load-toplevel :execute)
+  (trivial-timers:start-timers))
 
 (defun %make-timer% (fn muproc)
-  (timer:make-timer #'(lambda () (funcall fn muproc))))
+  (trivial-timers:make-timer #'(lambda () (funcall fn muproc))))
 
 (defun %schedule-timer-relative% (timer relative-expiry-time &optional repeat-period)
-  (timer:schedule-timer-relative timer relative-expiry-time repeat-period))
+  #-sbcl(trivial-timers::schedule-timer-relative timer relative-expiry-time :repeat-interval repeat-period)
+  #+sbcl(trivial-timers::schedule-timer timer relative-expiry-time :repeat-interval repeat-period :absolute-p nil))
 
 (defun %unschedule-timer% (timer)
-  (timer:unschedule-timer timer))
+  (trivial-timers::unschedule-timer timer))

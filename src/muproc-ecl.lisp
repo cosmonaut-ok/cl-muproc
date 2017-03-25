@@ -99,7 +99,7 @@ in error and signal handlers - default no-op implementation"
 ;;; TIMERS
 
 (defun %schedule-timer% (timer expiry-time &optional repeat-period)
-  (timer:schedule-timer timer relative-expiry-time repeat-period))
+  (trivial-timers:schedule-timer timer relative-expiry-time :repeat-interval repeat-period))
 
 (defmacro %with-timeout% ((seconds &body timeout-forms) &body body)
   "Execute BODY; if execution takes more than SECONDS seconds, terminate
